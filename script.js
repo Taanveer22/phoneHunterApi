@@ -1,4 +1,9 @@
+// step 01 : load phones data from api-------------------------
 const loadPhones = async () => {
+  console.log("3 seconds later loadPhones function call...");
+  // step 04 : hide the spinner------------------------------
+  document.getElementById("spinner").style.display = "none";
+  // step 05 : fetch data from api----------------------------
   const response = await fetch(
     "https://openapi.programming-hero.com/api/phones?search=iphone"
   );
@@ -8,23 +13,17 @@ const loadPhones = async () => {
   //   console.log(data.data);
 };
 
+//step 06 : display phones data in the ui--------------------------
 const displayPhones = (phones) => {
   //   console.log(phones);
-
-  // step:1
   const phoneContainer = document.getElementById("phones-container");
-
   phones.forEach((phone) => {
     // destructuring object
-    console.log(phone);
+    // console.log(phone);
     const { brand, phone_name, slug, image } = phone;
-
-    // step:2
     const phoneCard = document.createElement("div");
-
-    // step:3
     phoneCard.innerHTML = `
-            <div class="card bg-gray-600 shadow-sm m-2">
+            <div class="card bg-gray-300 shadow-sm m-2">
                     <figure class="px-10 pt-10">
                             <img src="${image}" class="rounded-xl" />
                     </figure>
@@ -40,10 +39,20 @@ const displayPhones = (phones) => {
                     </div>
             </div>
         `;
-
-    // step:4
     phoneContainer.appendChild(phoneCard);
   });
 };
 
-loadPhones();
+// step 02 : onclick handler for search button-----------------------------
+const handleSearch = () => {
+  console.log("search button clicked");
+  //   step 04 : show the spinner------------------------
+  document.getElementById("spinner").style.display = "block";
+  //step 03 : invoke loadPhones() inside setTimeout-------------------------
+  setTimeout(function () {
+    loadPhones();
+  }, 3000);
+};
+
+// final function invocation
+// loadPhones();

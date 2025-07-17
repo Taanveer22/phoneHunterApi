@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="retro">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>phone hunter</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <link
-      href="https://cdn.jsdelivr.net/npm/daisyui@3.6.4/dist/full.css"
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
       rel="stylesheet"
       type="text/css"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
-  <body>
+
+  <body class="poppins-font">
     <header class="w-11/12 mx-auto mb-12">
       <!-- navabar start ----------------------------------- -->
       <nav>
@@ -44,20 +45,46 @@
       <!-- search box start------------------------------ -->
       <section class="mb-12 space-y-6">
         <h2 class="text-center text-4xl font-semibold">Search your phone</h2>
-        <div class="join flex justify-center items-center">
-          <div class="">
-            <label class="input join-item">
-              <input class="p-3" type="text" placeholder="Search your phone" />
-            </label>
+        <div class="flex justify-center items-center">
+          <div class="join">
+            <div>
+              <label class="input join-item">
+                <svg
+                  class="h-[1em] opacity-50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                  </g>
+                </svg>
+                <input type="search" placeholder="Search Your Phone" />
+              </label>
+            </div>
+            <button onclick="handleSearch()" class="btn btn-neutral join-item">
+              Search
+            </button>
           </div>
-          <button class="btn btn-neutral join-item">Search</button>
         </div>
       </section>
+
+       <!-- spinner show and hide -->
+      <section id="spinner"></section>
+
       <!-- phone card container start ------------------------------- -->
       <section
         id="phones-container"
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
       ></section>
+
+     
     </main>
 
     <!-- footer start ------------------------------------------------ -->
