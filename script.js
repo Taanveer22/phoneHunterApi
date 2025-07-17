@@ -1,5 +1,7 @@
 // step 01 : load phones data from api-------------------------
-const loadPhones = async () => {
+const loadPhones = async (status) => {
+  // step 08 : implement status into loadPhones()------------
+  console.log(status);
   console.log("3 seconds later loadPhones function call...");
   // step 04 : hide the spinner------------------------------
   document.getElementById("spinner").style.display = "none";
@@ -9,13 +11,19 @@ const loadPhones = async () => {
   );
   const data = await response.json();
   const phones = data.data;
-  displayPhones(phones);
   //   console.log(data.data);
+
+  //   step 09 : validation for status---------------------------
+  if (status === true) {
+    displayPhones(phones);
+  } else {
+    displayPhones(phones.slice(0, 6));
+  }
 };
 
 //step 06 : display phones data in the ui--------------------------
 const displayPhones = (phones) => {
-  //   console.log(phones);
+  console.log(phones);
   const phoneContainer = document.getElementById("phones-container");
   phones.forEach((phone) => {
     // destructuring object
@@ -54,5 +62,12 @@ const handleSearch = () => {
   }, 3000);
 };
 
+// step 07 : onclick handler for showAll button----------------------
+const handleShowAll = () => {
+  console.log("show all btn clicked");
+  // step 08 : invoke loadPhones() with status inside handleShowAll()
+  loadPhones(true);
+};
+
 // final function invocation
-// loadPhones();
+loadPhones();
