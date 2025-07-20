@@ -27,6 +27,13 @@ const loadPhones = async (status, searchText) => {
 //step 06 : display phones data in the ui--------------------------
 const displayPhones = (phones) => {
   console.log(phones);
+  if (phones.length === 0) {
+    console.log("no phones");
+  } else {
+    console.log("many phones");
+  }
+  // step 13 : clear the loaded phone card
+  document.getElementById("phones-container").innerHTML = "";
   const phonesContainer = document.getElementById("phones-container");
   phones.forEach((phone) => {
     // console.log(phone);
@@ -77,13 +84,36 @@ const handleShowAll = () => {
 
 // step 12 : show modal for details button
 const handleDetails = async (slug) => {
-  console.log(slug);
+  // console.log(slug);
   const response = await fetch(
-    "https://openapi.programming-hero.com/api/phone/apple_iphone_13_pro_max-11089"
+    `https://openapi.programming-hero.com/api/phone/${slug}`
   );
   // console.log(response);
   const data = await response.json();
-  console.log(data.data.mainFeatures);
+  // console.log(data.data.mainFeatures);
+  const features = data.data.mainFeatures;
+  // console.log(features);
+  const { storage, displaySize, memory, chipSet } = features;
+  // console.log(storage, displaySize, memory, chipSet);
+  // dynamic data pass
+  const modalContainer = document.getElementById("modal-container");
+  modalContainer.innerHTML = `
+        <dialog id="features_modal" class="modal">
+          <div class="modal-box">
+            <h3 class="text-lg font-bold">${chipSet}</h3>
+            <p class="py-4">${memory}</p>
+            <p class="py-4">${storage}</p>
+            <p class="py-4">${displaySize}</p>
+            <div class="modal-action">
+              <form method="dialog">
+                <button class="btn">Close</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+                            `;
+  // modal show
+  features_modal.showModal();
 };
 // final function invocation
 loadPhones(false, "iphone");
